@@ -1,0 +1,65 @@
+<!-- Write HTML code here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>목록보기</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<strong>Category</strong>
+<form action="{% url 'index' %}" method="get">
+  {% for category in category_filter %}
+    <div>
+      {% if category.name in category_filter_checked %}  
+        <input
+          id="{{category.name}}"
+          type="checkbox"
+          name="{{category.name}}"
+          checked
+        >
+      {% else %}
+        <input
+          id="{{category.name}}"
+          type="checkbox"
+          name="{{category.name}}"
+        >
+      {% endif %}
+      <label for="{{category.name}}">{{category.label}}</label>
+    </div>
+  {% endfor %}
+  <input type="submit" value="필터링">
+</form>
+<div class="container">
+  <h2 class="text-center"><u>목록 보기</u></h2><br>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    <!-- jinja2 Technique -->
+    {% if d %}  
+    {% for i in d %}
+      <tr>
+        <td>{{i.category}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.address}}</td>
+        <td>{{i.price}}</td>
+      </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+  
+</body>
+</html>
